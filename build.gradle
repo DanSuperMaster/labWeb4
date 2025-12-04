@@ -1,0 +1,54 @@
+plugins {
+    id 'war'
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Jakarta EE 10 Web Profile API
+    compileOnly 'jakarta.platform:jakarta.jakartaee-web-api:10.0.0'
+    implementation 'org.hibernate.orm:hibernate-core:6.3.1.Final'
+
+    // Hibernate Validator
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation 'org.glassfish:jakarta.el:5.0.0-M1' // Для работы валидации
+
+    // Для BCrypt хэширования паролей
+    implementation 'at.favre.lib:bcrypt:0.10.2'
+    // ИЛИ используйте более популярную библиотеку:
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    // Для работы с JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    // ИЛИ используйте auth0 JWT (у вас уже есть):
+    implementation 'com.auth0:java-jwt:4.4.0'
+
+    // Для REST API (если ещё не добавлено)
+    implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.1'
+
+    // Для транзакций
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+
+    // Для тестов
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+war {
+    archiveFileName = "web4.war"
+}
